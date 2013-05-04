@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Guess who is
+        </title>
+        <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="/stylesheets/bootstrap.css">
+
+        <meta charset="UTF-8">
+
+        <style>
+            .hero-unit {
+                background-color: #84BFFC;
+            }
+            body {
+                color: white;
+                font-family: 'Bad Script', cursive;
+                text-align: center;
+            }
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto
+            }
+            a:link {
+                text-decoration: none;
+            }
+            a:hover {
+                color: red;
+            }
+            .options {
+                padding: 0 0 20px 0;
+            }
+            .well {
+                color: #548BCC;
+            }
+            .logo {
+                padding: 0 0 20px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="hero-unit">
+                <div class="row">
+                    <div class="span3">
+                        <h1 class="logo">Guess who is</h1>
+                    </div>
+                    <div class="span3">
+                        <img src="/images/fpo-picture.gif"> Ramon One
+                    </div>
+                    <div class="span1">
+                        X
+                    </div>
+                    <div class="span3">
+                        <img src="/images/fpo-picture.gif"> Ramon Two
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="row">
+                        <div class="span2">
+                            <h2 class="options">Options</h2>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                        </div>
+                        <div class="span4">
+                            <img id='blurred_picture' src="/images/profile.jpg"/>
+                        </div>
+                        <div class="span3">
+                            <ul>
+                                <li>Born in 1980</li>
+                                <li>Lives in São Paulo</li>
+                                <li>Like Game of Thrones</li>
+                                <li>Work at Facebook</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <div>
+        </div>
+
+        <script type="text/javascript" src="/javascript/pixastic.core.js"></script>
+        <script type="text/javascript" src="/javascript/actions/blurfast.js"></script> 
+        <script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
+        
+        <script type="text/javascript">
+            //var img = new Image();
+            //img.onload = function() {
+            //    Pixastic.process(img, "blurfast", {amount:16.0});
+            //}
+            //img.src = "/images/profile.jpg";
+            //$('#blurred_picture').append(img);
+            
+            function blur(){
+                Pixastic.process(this, "blurfast", {amount:2.0});
+                $('#blurred_picture').click(blur);
+            }
+            $('#blurred_picture').click(blur);
+        </script>
+
+    
+        
+
+        
+    </body>
+</html>
