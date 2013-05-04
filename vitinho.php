@@ -36,6 +36,7 @@ function getRandomMutualFriend(friends,friends_of_friends) {
         });
 }
 
+
 <?php
     $user1data = 'https://graph.facebook.com/1703431647?fields='.urlencode('id,name,friends.fields(birthday,age_range,education,id,name)').'&access_token=BAACEdEose0cBAAeJZAc1nUwOfOoxxfe0yWa90OhiPgqZATbfUpCBpnlHqpWLtYtrDsgAwtFfouxocwhoDQMGw8XgxXJfqL34HJpfShPdZBK8SQea0uOrmNkbx2PSsyZCH1eZCMuT4vX6fqCPn67PFk20FB1DlIGfuao8yQW27ZA41xSHqRClWV7gBxPT1KdlfyYOU5eDElJV02nrcF10eeoxwuMH44VCAZD';
     $json1 = file_get_contents($user1data);
