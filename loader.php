@@ -6,7 +6,9 @@
     // pega user do db. se n existir, coloca ele no db.
     // pega friend do db. se n existir, coloca ele no db.
     // faz o cõdigo de pegar as infos da match
-
+    include 'database.php';
+    insertUser($user_id, "'Vitinho'", $db);
+    insertUser($friend_id, "'Marcelo'", $db);
 ?>
 
 
