@@ -255,6 +255,7 @@ $app_name = idx($app_info, 'name', '');
 
     <?php
       if ($user_id) {
+echo "<h1>User Id:".$user_id."</h1>"
     ?>
 
     <section id="samples" class="clearfix">
