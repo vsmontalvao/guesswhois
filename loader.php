@@ -83,7 +83,14 @@
 
                 $.post(
                     'insert_match.php',
-                    {'f1':f1, 'f2':f2, 'f3':f3, 'f4':f4},
+                    {
+                       'user_id': '<?php $_GET["user_id"] ?>',
+                       'friend_id': '<?php $_GET["friend_id"] ?>',
+                       'f1':f1,
+                       'f2':f2,
+                       'f3':f3,
+                       'f4':f4
+                     },
                     function (response) {
                         alert(response);
                         window.location.assign(response);
