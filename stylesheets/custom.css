@@ -1,0 +1,33 @@
+.hero-unit {
+    background-color: #84BFFC;
+}
+body {
+    color: white;
+    font-family: 'Bad Script', cursive;
+    text-align: center;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+a:link {
+    text-decoration: none;
+}
+a:hover {
+    color: red;
+}
+.options {
+    padding: 0 0 20px 0;
+}
+.well {
+    color: #548BCC;
+}
+.friends {
+    padding: 30px 30px 30px 30px;
+    height: 300px;
+    overflow: auto;
+}
+.logo {
+    padding: 0 0 20px 0;
+}
