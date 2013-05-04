@@ -27,7 +27,7 @@ function createMatch($p1, $p2, $answer, $opt2, $opt3, $opt4, $db){
 	
 	$query = "SELECT LASTVAL() LIMIT 1";
 	$result = $db->query($query);
-	return $result->fetch(PDO::FETCH_ASSOC)["lastval"];	
+	return $result->fetch(PDO::FETCH_ASSOC);	
 }
 function getMatch($gid, $db){
 	$query = "SELECT game_id, p1_id, p2_id, tmp1, tmp2, punctuation1, punctuation2, tips1, tips2, venceu, terminou1, terminou2, "
