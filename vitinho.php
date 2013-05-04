@@ -1,25 +1,39 @@
 function getFriends() {
+    var friends = new Array();
     FB.api('/me/friends', function(response) {
         if(response.data) {
             $.each(response.data,function(index,friend) {
-                alert(friend.name + ' has id:' + friend.id);
+                friends[index]=friend;
             });
         } else {
             alert("Error!");
         }
     });
+    return friends;
 }
 
 function getFriendsOfFriend(friend_id) {
+    var friends = new Array();
     FB.api('/'+friend_id+'/friends', function(response) {
         if(response.data) {
             $.each(response.data,function(index,friend) {
-                alert(friend.name + ' has id:' + friend.id);
+                friends[index]=friend;
             });
         } else {
             alert("Error!");
         }
     });
+    return friends;
+}
+
+function getRandomMutualFriend(friends,friends_of_friends) {
+    var mutualFriends = new Array();
+    $.each(friends,function(index,friend) {
+            $.each(friends_of_friends,function(index,friend) {
+                    
+                    friends[index]=friend;
+            });
+        });
 }
 
 <?php
