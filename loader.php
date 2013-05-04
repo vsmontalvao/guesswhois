@@ -1,14 +1,16 @@
 <?php
     $user_id = $_GET['user_id'];
     $friend_id = $_GET['friend_id'];
+    $user_name = $_GET['user_name'];
+    $friend_name = $_GET['friend_name'];
 
 
     // pega user do db. se n existir, coloca ele no db.
     // pega friend do db. se n existir, coloca ele no db.
     // faz o cõdigo de pegar as infos da match
     include 'database.php';
-    insertUser($user_id, "'Vitinho'", $db);
-    insertUser($friend_id, "'Marcelo'", $db);
+    insertUser($user_id, "'".$user_name."'", $db);
+    insertUser($friend_id, "'".$friend_name."'", $db);
 ?>
 
 
@@ -74,9 +76,11 @@
     function getMatchInfo() {
         FB.api('/me/mutualfriends/<?php echo $_GET["friend_id"] ?>', function(response) {
             var friends = new Array();
+            var friends_name = new Array();
             if(response.data) {
                 $.each(response.data,function(index,friend) {                                       
                     friends[index]=friend.id;
+                    friends_name[index]=friend.name;
                 });
 
                 var f_size = friends.length;
@@ -91,14 +95,15 @@
                 var f2 = friends[rdm_index[1]];
                 var f3 = friends[rdm_index[2]];
                 var f4 = friends[rdm_index[3]];
-                alert('f1'+f1);
-                alert(f2);
-                alert(f3);
-                alert(f4);
+                var f1name = friends_name[rdm_index[0]];
+                var f2name = friends_name[rdm_index[1]];
+                var f3name = friends_name[rdm_index[2]];
+                var f4name = friends_name[rdm_index[3]];
 
                 $.post(
                     'insert_match.php',
-                    {'user_id':parseInt(<?php echo $user_id ?>), 'friend_id':parseInt(<?php echo $friend_id ?>), 'f1':f1, 'f2':f2, 'f3':f3, 'f4':f4},
+                    {'user_id':parseInt(<?php echo $user_id ?>), 'friend_id':parseInt(<?php echo $friend_id ?>), 'f1':f1, 'f2':f2, 'f3':f3, 'f4':f4,
+                        'f1name':encodeURIComponent(f1name), 'f2name':encodeURIComponent(f2name), 'f3name':encodeURIComponent(f3name), 'f4name':encodeURIComponent(f4name)},
                     function (response) {
                        // alert(response);
                         window.location.assign(response);
@@ -122,7 +127,7 @@
         //             friends[index]=friend.id;
         //         });
         //         alert(friends[0]);
-        //         FB.api('/<?php echo $_GET["friend_id"]; ?>/friends', function(response){
+        //         FB.api('/<?php //echo $_GET["friend_id"]; ?>/friends', function(response){
 
         //             if(response.data) {
         //                 alert('amigos do amigo');
