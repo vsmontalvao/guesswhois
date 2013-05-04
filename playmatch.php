@@ -2,7 +2,7 @@
 
     include 'database.php';
     $match_id = $_GET['match_id'];
-    echo "<h1>".$match_id."</h1>";
+    //echo "<h1>".$match_id."</h1>";
     $match = getMatch($match_id, $db);
     $player = getUser($match['p1_id'], $db);
     $opponent = getUser($match['p2_id'], $db);
@@ -28,6 +28,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
         <title>
             Guess who is
         </title>
@@ -40,6 +41,10 @@
     <body>
     	<div id="fb-root"></div>
 	    <script>
+        var inicio;
+        $(document).ready(function(){
+            inicio = new Date();
+        });
 	      window.fbAsyncInit = function() {
 	      FB.init({
 	        appId      : '579790928720973', // App ID
@@ -139,13 +144,12 @@
 	
 	      }
 
-          // funções para lidar com o tempo
-            function calcular_diferenca (tempo_inicial) {
+            function post_tempo_usuario (match_id, acertou) {
+                //alert(inicio);
                 var fim = new Date();
-                return ((fim - inicio)/1000).toFixed(1);
-            }
-
-            function post_tempo_usuario (tempo, match_id, acertou) {
+                //alert(fim);
+                tempo = Math.round((fim - inicio)/1000);
+                //alert(tempo);
                 $.post(
                     '/concluir_partida.php',
                     {
@@ -154,14 +158,10 @@
                         'acertou': acertou
                     },
                     function (resposta) {
-                        alert('acabou');
+                        alert(resposta);
                     }
                 );
             }
-            $(document).ready(function () {
-                var inicio = new Date();
-            });
-
             
 	    </script>
     	
@@ -188,22 +188,22 @@
                             <?php 
                             	if ($answer_pos==0)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a class="resposta" href="#">'.$answer["user_name"].'</a>';
                             	}
-                            	echo '<a href="#">'.$opt2["user_name"].'</a>';
+                            	echo '<a class="alternativa" href="#">'.$opt2["user_name"].'</a>';
 								if ($answer_pos==1)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a class="resposta" href="#">'.$answer["user_name"].'</a>';
                             	}
-                            	echo '<a href="#">'.$opt3["user_name"].'</a>';
+                            	echo '<a class="alternativa" href="#">'.$opt3["user_name"].'</a>';
 								if ($answer_pos==2)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a class="resposta" href="#">'.$answer["user_name"].'</a>';
                             	}	
-                            	echo '<a href="#">'.$opt4["user_name"].'</a>';
+                            	echo '<a class="alternativa" href="#">'.$opt4["user_name"].'</a>';
 								if ($answer_pos==3)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a class="resposta" href="#">'.$answer["user_name"].'</a>';
                             	}
                             ?>
                         </div>
@@ -227,11 +227,11 @@
 
         <script type="text/javascript" src="/js/pixastic.core.js"></script>
         <script type="text/javascript" src="/js/actions/blurfast.js"></script>
-        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+
         
         <script type="text/javascript">
         $.get("http://graph.facebook.com/100000093981420/picture?type=large", {success: function (e){console.log(e)}})
-            function blurPic(x){0
+            function blurPic(x){
                 Pixastic.revert(document.getElementById("blurred_picture"));
                 Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
                 if (x > 5){
@@ -241,7 +241,25 @@
             };
             $(document).ready(function (){
                 blurPic(35);
-            })
+            });
+        function alternativa_correta() {
+            post_tempo_usuario(<?php echo $match_id ?>, 1);
+        }
+
+        function alternativa_errada () {
+            post_tempo_usuario(<?php echo $match_id ?>, 0);
+        }
+        $(document).ready(function () {
+            $(".alternativa").click(function (event) {
+                alternativa_errada();
+                event.preventDefault();
+            });
+
+            $(".resposta").click(function (event) {
+                alternativa_correta();
+                event.preventDefault();
+            });
+        });
         </script>   
     </body>
 </html>

@@ -165,7 +165,8 @@
   </script>
   <!--Below we include the Login Button social plugin. This button uses the JavaScript SDK to-->
   <!--present a graphical Login button that triggers the FB.login() function when clicked.-->
-  <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+  <!-- <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button> -->
+  <h1> ...Yes, we're loading. So what? </h1>
   
   
   <div id="friends_list">
