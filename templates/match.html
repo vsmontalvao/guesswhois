@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Guess who is
+        </title>
+        <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="/stylesheets/bootstrap.css">
+        <link rel="stylesheet" type="text/css" charset="utf-8" href="/stylesheets/custom.css">
+
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container">
+            <div class="hero-unit">
+                <div class="row">
+                    <div class="span3">
+                        <h1 class="logo">Guess who is</h1>
+                    </div>
+                    <div class="span3">
+                        <img src="/images/fpo-picture.gif"> Ramon One
+                    </div>
+                    <div class="span1">
+                        X
+                    </div>
+                    <div class="span3">
+                        <img src="/images/fpo-picture.gif"> Ramon Two
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="row">
+                        <div class="span2">
+                            <h2 class="options">Options</h2>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                        </div>
+                        <div class="span4">
+                            <img id="blurred_picture" src="/images/profile.jpg"/>
+                        </div>
+                        <div class="span3">
+                            <ul>
+                                <li>Born in 1980</li>
+                                <li>Lives in São Paulo</li>
+                                <li>Like Game of Thrones</li>
+                                <li>Work at Facebook</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <div>
+        </div>
+
+        <script type="text/javascript" src="/js/pixastic.core.js"></script>
+        <script type="text/javascript" src="/js/actions/blurfast.js"></script>
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        
+        <script type="text/javascript">
+            function blurPic(x){
+                Pixastic.revert(document.getElementById("blurred_picture"));
+                Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
+                if (x > 5){
+                    setTimeout(blurPic, 2000, x - 1);
+                }
+            }
+            $(document).ready(function (){
+                blurPic(35);
+            })
+        </script>
+
+    
+        
+
+        
+    </body>
+</html>
