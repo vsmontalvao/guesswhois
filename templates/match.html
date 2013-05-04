@@ -67,7 +67,7 @@
                             <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
                         </div>
                         <div class="span4">
-                            <img id='blurred_picture' src="/images/profile.jpg"/>
+                            <img id="blurred_picture" src="/images/profile.jpg"/>
                         </div>
                         <div class="span3">
                             <ul>
@@ -87,17 +87,17 @@
         <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
         
         <script type="text/javascript">
-            //var img = new Image();
-            //img.onload = function() {
-            //    Pixastic.process(img, "blurfast", {amount:16.0});
-            //}
-            //img.src = "/images/profile.jpg";
-            //$('#blurred_picture').append(img);
-            
-            function blur(){
-                Pixastic.process('#blurred_picture', "blurfast", {amount: 2.0});
+            function blurPic(x){
+                Pixastic.revert(document.getElementById("blurred_picture"));
+                Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
+                if (x > 5){
+                    setTimeout(blurPic, 2000, x - 1);
+                }
+                console.log(x);
             }
-            $('#blurred_picture').click(blur);
+            $(document).ready(function (){
+                blurPic(35);
+            })
         </script>
 
     
