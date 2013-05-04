@@ -170,18 +170,22 @@
         <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
         
         <script type="text/javascript">
-            function blurPic(x){0
+            function sleep(milliseconds) {
+              var start = new Date().getTime();
+              while ((new Date().getTime() - start) < milliseconds){
+
+              }
+              
+        }
+            function blurPic(x){
                 Pixastic.revert(document.getElementById("blurred_picture"));
                 Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
                 $("#blurred_picture").show();
-                if (x > 2){
-                    setTimeout(blurPic, 2, x - 1);
+                if (x > 1){
+                    setTimeout(blurPic, 1000, x - 0.5);
                 }
                 console.log(x)
             };
-            $(document).ready(function (){
-                //blurPic(35);
-            })
         </script>
         <div class="container">
             <div class="hero-unit">
@@ -227,7 +231,7 @@
                             ?>
                         </div>
                         <div class="span5">
-                            <img style="display: none" onload="blurPic(5)" id="blurred_picture" src="http://graph.facebook.com/<?php echo $answer['user_id']  ?>/picture?type=large"/>
+                            <img style="display: none" onload="blurPic(8)" id="blurred_picture" src="http://graph.facebook.com/<?php echo $answer['user_id']  ?>/picture?type=large"/>
                         </div>
                         <!-- 
                         <div class="span3">
@@ -243,24 +247,8 @@
                 </div>
             <div>
         </div>
-
-        <script type="text/javascript" src="/js/pixastic.core.js"></script>
-        <script type="text/javascript" src="/js/actions/blurfast.js"></script>
-
         
         <script type="text/javascript">
-        $.get("http://graph.facebook.com/100000093981420/picture?type=large", {success: function (e){console.log(e)}})
-            function blurPic(x){
-                Pixastic.revert(document.getElementById("blurred_picture"));
-                Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
-                if (x > 5){
-                    setTimeout(blurPic, 2, x - 1);
-                }
-                //console.log(x)
-            };
-            $(document).ready(function (){
-                blurPic(35);
-            });
         function alternativa_correta() {
             post_tempo_usuario(<?php echo $match_id ?>, 1);
         }
