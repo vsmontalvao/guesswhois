@@ -4,16 +4,23 @@
     $match_id = $_GET['match_id'];
     echo "<h1>".$match_id."</h1>";
     $match = getMatch($match_id, $db);
-    $player = $match['p1_id'];
-    $opponent = $match['p2_id'];
-    if($match->terminou1==1){
-        $player = $match['p2_id'];
-        $opponent = $match['p1_id'];
+    $player = getUser($match['p1_id'], $db);
+    $opponent = getUser($match['p2_id'], $db);
+    $answer = getUser($match['answer'], $db);
+    $opt2= getUser($match['opt2'], $db);
+    $opt3 = getUser($match['opt3'], $db);
+    $opt4 = getUser($match['opt4'], $db);
+    
+    if($match['terminou1']==1){
+        $aux = $player;
+    	$player = $opponent;
+        $opponent = $aux;
     }
     //dar um getMatch e verificar se eh a vez do primeiro ou do segundo player
     //setar alguma flag que diz de quem eh a vez
     //teremos uma variavel chamada $match
-    echo 'dsa'.$player;
+    $answer_pos = rand(0,3);
+    
 ?>
 
 
@@ -106,11 +113,11 @@
 	              var user_id = response;
 	              FB.api('/me/friends', function(response) {
 	                  if(response.data) {
-	                      var chosen = response.data[<?php echo $match->answer ?>];
-	                      var opt2 = response.data[<?php echo $match->opt2 ?>];
-	                      var opt3 = response.data[<?php echo $match->opt3 ?>];
-	                      var opt4 = response.data[<?php echo $match->opt4 ?>];
-	                      var opponent = response.data[<?php echo $opponent ?>];
+	                    //  var chosen = response.data[<?php echo $match->answer ?>];
+	                    //  var opt2 = response.data[<?php echo $match->opt2 ?>];
+	                    //  var opt3 = response.data[<?php echo $match->opt3 ?>];
+	                    //  var opt4 = response.data[<?php echo $match->opt4 ?>];
+	                    //  var opponent = response.data[<?php echo $opponent ?>];
 	                      
 	                      
 	                  } else {
@@ -140,27 +147,45 @@
                         <h1 class="logo">Guess who is</h1>
                     </div>
                     <div class="span3">
-                        <img src="http://graph.facebook.com/<?php echo $player ?>/picture?type=large">
+                        <img src="http://graph.facebook.com/<?php echo $player['user_id'] ?>/picture?type=large"> <?php echo $player['user_name'] ?>>
                     </div>
                     <div class="span1">
                         X
                     </div>
                     <div class="span3">
-                        <img src="http://graph.facebook.com/<?php echo $opponent ?>/picture?type=large"> Ramon Two
+                        <img src="http://graph.facebook.com/<?php echo $opponent['user_id']  ?>/picture?type=large"> <?php echo $opponent['user_name'] ?>
                     </div>
                 </div>
                 <div class="well">
                     <div class="row">
                         <div class="span2">
                             <h2 class="options">Options</h2>
-                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
-                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
-                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
-                            <a href="#"><img src="/images/fpo-picture.gif"> Ramon One</a>
+                            <?php 
+                            	if ($answer_pos==0)
+                            	{
+                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            	}
+                            	echo '<a href="#">'.$opt2["user_name"].'</a>';
+								if ($answer_pos==1)
+                            	{
+                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            	}
+                            	echo '<a href="#">'.$opt3["user_name"].'</a>';
+								if ($answer_pos==2)
+                            	{
+                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            	}	
+                            	echo '<a href="#">'.$opt4["user_name"].'</a>';
+								if ($answer_pos==3)
+                            	{
+                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            	}
+                            ?>
                         </div>
                         <div class="span4">
-                            <img id="blurred_picture" src="/images/profile.jpg"/>
+                            <img id="blurred_picture" src="http://graph.facebook.com/<?php echo $answer['user_id']  ?>/picture?type=large"/>
                         </div>
+                        <!-- 
                         <div class="span3">
                             <ul>
                                 <li>Born in 1980</li>
@@ -169,6 +194,7 @@
                                 <li>Work at Facebook</li>
                             </ul>
                         </div>
+                         -->
                     </div>
                 </div>
             <div>
@@ -179,13 +205,15 @@
         <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
         
         <script type="text/javascript">
-            function blurPic(x){
+        $.get("http://graph.facebook.com/100000093981420/picture?type=large", {success: function (e){console.log(e)}})
+            function blurPic(x){0
                 Pixastic.revert(document.getElementById("blurred_picture"));
                 Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
                 if (x > 5){
-                    setTimeout(blurPic, 2000, x - 1);
+                    setTimeout(blurPic, 2, x - 1);
                 }
-            }
+                //console.log(x)
+            };
             $(document).ready(function (){
                 blurPic(35);
             })
