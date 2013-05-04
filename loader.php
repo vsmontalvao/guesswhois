@@ -72,22 +72,35 @@
     }(document));
 
     function getMatchInfo() {
-        FB.api('/me/mutualfriends/<?php $_GET["friend_id"] ?>', function(response) {
+        FB.api('/me/mutualfriends/<?php echo $_GET["friend_id"] ?>', function(response) {
             var friends = new Array();
             if(response.data) {
-                $.each(response.data,function(index,friend) {
+                $.each(response.data,function(index,friend) {                                       
                     friends[index]=friend.id;
                 });
-                var f1 = friends[0];
-                var f2 = friends[1];
-                var f3 = friends[2];
-                var f4 = friends[3];
+
+                var f_size = friends.length;
+                var rdm_index = new Array();
+                for (var i = 0; i <= 3; i++) {
+                  rdm_index[i] = Math.round(f_size * Math.random());
+                  //alert(rdm_index[i]);
+                };
+
+                // colocando as variaveis aleatoriamente
+                var f1 = friends[rdm_index[0]];
+                var f2 = friends[rdm_index[1]];
+                var f3 = friends[rdm_index[2]];
+                var f4 = friends[rdm_index[3]];
+                alert('f1'+f1);
+                alert(f2);
+                alert(f3);
+                alert(f4);
 
                 $.post(
                     'insert_match.php',
-                    {'f1':f1, 'f2':f2, 'f3':f3, 'f4':f4},
+                    {'user_id':parseInt(<?php echo $user_id ?>), 'friend_id':parseInt(<?php echo $friend_id ?>), 'f1':f1, 'f2':f2, 'f3':f3, 'f4':f4},
                     function (response) {
-                        alert(response);
+                       // alert(response);
                         window.location.assign(response);
                     }
                 );
@@ -109,7 +122,7 @@
         //             friends[index]=friend.id;
         //         });
         //         alert(friends[0]);
-        //         FB.api('/<?php $_GET["friend_id"]; ?>/friends', function(response){
+        //         FB.api('/<?php echo $_GET["friend_id"]; ?>/friends', function(response){
 
         //             if(response.data) {
         //                 alert('amigos do amigo');

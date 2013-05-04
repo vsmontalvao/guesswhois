@@ -106,11 +106,11 @@
 	              var user_id = response;
 	              FB.api('/me/friends', function(response) {
 	                  if(response.data) {
-	                      var chosen = response.data[<?php $match->answer ?>];
-	                      var opt2 = response.data[<?php $match->opt2 ?>];
-	                      var opt3 = response.data[<?php $match->opt3 ?>];
-	                      var opt4 = response.data[<?php $match->opt4 ?>];
-	                      var opponent = response.data[<?php $opponent ?>];
+	                      var chosen = response.data[<?php echo $match->answer ?>];
+	                      var opt2 = response.data[<?php echo $match->opt2 ?>];
+	                      var opt3 = response.data[<?php echo $match->opt3 ?>];
+	                      var opt4 = response.data[<?php echo $match->opt4 ?>];
+	                      var opponent = response.data[<?php echo $opponent ?>];
 	                      
 	                      
 	                  } else {
@@ -140,13 +140,13 @@
                         <h1 class="logo">Guess who is</h1>
                     </div>
                     <div class="span3">
-                        <img src="http://graph.facebook.com/<?php $player ?>/picture?type=large">
+                        <img src="http://graph.facebook.com/<?php echo $player ?>/picture?type=large">
                     </div>
                     <div class="span1">
                         X
                     </div>
                     <div class="span3">
-                        <img src="http://graph.facebook.com/<?php $opponent ?>/picture?type=large"> Ramon Two
+                        <img src="http://graph.facebook.com/<?php echo $opponent ?>/picture?type=large"> Ramon Two
                     </div>
                 </div>
                 <div class="well">
