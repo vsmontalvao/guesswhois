@@ -68,7 +68,7 @@
               FB.api('/me/friends', function(response) {
                   if(response.data) {
                       
-                      $('#user_info').append("<h3>"+ user_name +"</h3><img src='http://graph.facebook.com/"+ user_id +"/picture?type=small'>")
+                      $('#user_info').append("<h3>"+ user_name +"</h3><img src='http://graph.facebook.com/"+ user_id +"/picture?type=small'>");
                       $.each(response.data,function(index,friend) {
                           $('#friends_container').append("<a href='loader.php?friend_id="+friend.id+"&user_id="+user_id+"'> <div class='span3'> <img src='http://graph.facebook.com/"+ friend.id +"/picture?type=small'> "+friend.name+"  </div> </a>"); 
                           //$('#friends_list').append('<li><a href="loader.php?friend_id='+friend.id+'&user_id='+user_id+'">'+friend.name+'</a></li>');
