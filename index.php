@@ -64,9 +64,11 @@
       function listFriends() {
           FB.api('/me', function(response) {
               var user_id = response.id;
+              var user_name = response.name;
               FB.api('/me/friends', function(response) {
                   if(response.data) {
                       
+                      $('#user_info').append("<h3>"+ user_name +"</h3><img src='http://graph.facebook.com/"+ user_id +"/picture?type=small'>")
                       $.each(response.data,function(index,friend) {
                           $('#friends_container').append("<a href='loader.php?friend_id="+friend.id+"&user_id="+user_id+"'> <div class='span3'> <img src='http://graph.facebook.com/"+ friend.id +"/picture?type=small'> "+friend.name+"  </div> </a>"); 
                           //$('#friends_list').append('<li><a href="loader.php?friend_id='+friend.id+'&user_id='+user_id+'">'+friend.name+'</a></li>');
@@ -82,7 +84,7 @@
 
       function loadBaseHTML (argument) {
         $('.container').show();
-        $("#fb_login_button").show();
+        $("#fb_login_button").hide();
       }
 
       // Here we run a very simple test of the Graph API after login is successful. 
@@ -112,7 +114,7 @@
                     <h1 class="logo">Guess who is</h1>
                 </div>
                 <div class="span3">
-                    <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+                    <div id="user_info"></div>
                 </div>
             </div>
             <div class="well friends" id="friends_container">

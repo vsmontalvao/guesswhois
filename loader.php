@@ -76,10 +76,19 @@
                 $.each(response.data,function(index,friend) {
                     friends[index]=friend.id;
                 });
-                var f1 = friends[0];
-                var f2 = friends[1];
-                var f3 = friends[2];
-                var f4 = friends[3];
+
+                var f_size = friends.length;
+                var rdm_index = new Array();
+                for (var i = 0; i <= 3; i++) {
+                  rdm_index[i] = Math.round(f_size * Math.random());
+                  alert(rdm_index[i]);
+                };
+
+                // colocando as variaveis aleatoriamente
+                var f1 = friends[rdm_index[0]];
+                var f2 = friends[rdm_index[1]];
+                var f3 = friends[rdm_index[2]];
+                var f4 = friends[rdm_index[3]];
 
                 $.post(
                     'insert_match.php',
