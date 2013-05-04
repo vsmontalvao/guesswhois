@@ -64,7 +64,7 @@ $result->closeCursor();
 
 
 $query = "SELECT * "
-  ."FROM matches";
+  ."FROM matches ORDER BY game_id ASC";
 $result = $db->query($query);
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     echo "<tr>";
