@@ -139,7 +139,25 @@
 	
 	      }
 	    </script>
-    	
+	    
+    	<script type="text/javascript" src="/js/pixastic.core.js"></script>
+        <script type="text/javascript" src="/js/actions/blurfast.js"></script>
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        
+        <script type="text/javascript">
+            function blurPic(x){0
+                Pixastic.revert(document.getElementById("blurred_picture"));
+                Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
+                $("#blurred_picture").show();
+                if (x > 2){
+                    setTimeout(blurPic, 2, x - 1);
+                }
+                console.log(x)
+            };
+            $(document).ready(function (){
+                //blurPic(35);
+            })
+        </script>
         <div class="container">
             <div class="hero-unit">
                 <div class="row">
@@ -158,32 +176,32 @@
                 </div>
                 <div class="well">
                     <div class="row">
-                        <div class="span2">
+                        <div class="span3">
                             <h2 class="options">Options</h2>
                             <?php 
                             	if ($answer_pos==0)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a href="#">'.urldecode($answer["user_name"]).'</a><br />';
                             	}
-                            	echo '<a href="#">'.$opt2["user_name"].'</a>';
+                            	echo '<a href="#">'.urldecode($opt2["user_name"]).'</a><br />';
 								if ($answer_pos==1)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a href="#">'.urldecode($answer["user_name"]).'</a><br />';
                             	}
-                            	echo '<a href="#">'.$opt3["user_name"].'</a>';
+                            	echo '<a href="#">'.urldecode($opt3["user_name"]).'</a><br />';
 								if ($answer_pos==2)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a href="#">'.urldecode($answer["user_name"]).'</a><br />';
                             	}	
-                            	echo '<a href="#">'.$opt4["user_name"].'</a>';
+                            	echo '<a href="#">'.urldecode($opt4["user_name"]).'</a><br />';
 								if ($answer_pos==3)
                             	{
-                            		echo '<a href="#">'.$answer["user_name"].'</a>';
+                            		echo '<a href="#">'.urldecode($answer["user_name"]).'</a><br />';
                             	}
                             ?>
                         </div>
-                        <div class="span4">
-                            <img id="blurred_picture" src="http://graph.facebook.com/<?php echo $answer['user_id']  ?>/picture?type=large"/>
+                        <div class="span5">
+                            <img style="display: none" onload="blurPic(5)" id="blurred_picture" src="http://graph.facebook.com/<?php echo $answer['user_id']  ?>/picture?type=large"/>
                         </div>
                         <!-- 
                         <div class="span3">
@@ -199,24 +217,5 @@
                 </div>
             <div>
         </div>
-
-        <script type="text/javascript" src="/js/pixastic.core.js"></script>
-        <script type="text/javascript" src="/js/actions/blurfast.js"></script>
-        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
-        
-        <script type="text/javascript">
-        $.get("http://graph.facebook.com/100000093981420/picture?type=large", {success: function (e){console.log(e)}})
-            function blurPic(x){0
-                Pixastic.revert(document.getElementById("blurred_picture"));
-                Pixastic.process(document.getElementById("blurred_picture"), "blurfast", {amount: x});
-                if (x > 5){
-                    setTimeout(blurPic, 2, x - 1);
-                }
-                //console.log(x)
-            };
-            $(document).ready(function (){
-                blurPic(35);
-            })
-        </script>   
     </body>
 </html>
