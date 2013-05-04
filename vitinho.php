@@ -1,3 +1,27 @@
+function getFriends() {
+    FB.api('/me/friends', function(response) {
+        if(response.data) {
+            $.each(response.data,function(index,friend) {
+                alert(friend.name + ' has id:' + friend.id);
+            });
+        } else {
+            alert("Error!");
+        }
+    });
+}
+
+function getFriendsOfFriend(friend_id) {
+    FB.api('/'+friend_id+'/friends', function(response) {
+        if(response.data) {
+            $.each(response.data,function(index,friend) {
+                alert(friend.name + ' has id:' + friend.id);
+            });
+        } else {
+            alert("Error!");
+        }
+    });
+}
+
 <?php
     $user1data = 'https://graph.facebook.com/1703431647?fields='.urlencode('id,name,friends.fields(birthday,age_range,education,id,name)').'&access_token=BAACEdEose0cBAAeJZAc1nUwOfOoxxfe0yWa90OhiPgqZATbfUpCBpnlHqpWLtYtrDsgAwtFfouxocwhoDQMGw8XgxXJfqL34HJpfShPdZBK8SQea0uOrmNkbx2PSsyZCH1eZCMuT4vX6fqCPn67PFk20FB1DlIGfuao8yQW27ZA41xSHqRClWV7gBxPT1KdlfyYOU5eDElJV02nrcF10eeoxwuMH44VCAZD';
     $json1 = file_get_contents($user1data);
