@@ -23,6 +23,11 @@ a:hover {
 .well {
     color: #548BCC;
 }
+.friends {
+    padding: 30px 30px 30px 30px;
+    height: 300px;
+    overflow: auto;
+}
 .logo {
     padding: 0 0 20px 0;
 }
