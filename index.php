@@ -1,6 +1,11 @@
 <html>
-<head></head>
-<body>
+<head>
+    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+    <script>
+        
+    </script>        
+</head>
+<body>  
   <div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {
@@ -52,9 +57,27 @@
      ref.parentNode.insertBefore(js, ref);
     }(document));
 
+    function listFriends() {
+        FB.api('/me/friends', function(response) {
+            if(response.data) {
+                $('#friends_list').append('<ul><li> Escolha um amigo </li>');
+                
+                $.each(response.data,function(index,friend) {
+                    $('#friends_list').append('<li><a href="loader.php?friend_id='+friend.id+'">'+friend.name+'</a></li>');
+                });
+                
+                $('#friends_list').append('</ul>');
+            } else {
+                alert("Error!");
+            }
+        });
+    }
+
+
     // Here we run a very simple test of the Graph API after login is successful. 
     // This testAPI() function is only called in those cases. 
     function testAPI() {
+      listFriends();
       console.log('Welcome!  Fetching your information.... ');
       FB.api('/me', function(response) {
         console.log('Good to see you, ' + response.name + '.');
@@ -64,5 +87,10 @@
   <!--Below we include the Login Button social plugin. This button uses the JavaScript SDK to-->
   <!--present a graphical Login button that triggers the FB.login() function when clicked.-->
   <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+  
+  
+  <div id="friends_list">
+  </div>
+  
 </body>
 </html>
