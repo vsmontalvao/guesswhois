@@ -13,10 +13,10 @@
 require_once('AppInfo.php');
 
 // Enforce https on production
-if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
-  header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-  exit();
-}
+//if (substr(AppInfo::getUrl(), 0, 8) != 'https://' && $_SERVER['REMOTE_ADDR'] != '127.0.0.1') {
+//  header('Location: https://'. $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+//  exit();
+//}
 
 // This provides access to helper functions defined in 'utils.php'
 require_once('utils.php');
@@ -41,10 +41,13 @@ $facebook = new Facebook(array(
 ));
 
 $user_id = $facebook->getUser();
+ 
 if ($user_id) {
+   
   try {
     // Fetch the viewer's basic information
     $basic = $facebook->api('/me');
+     // echo '<script> alert("teste2");</script>'; die();
   } catch (FacebookApiException $e) {
     // If the call fails we check if we still have a user. The user will be
     // cleared if the error is because of an invalid accesstoken
@@ -258,7 +261,7 @@ $app_name = idx($app_info, 'name', '');
     ?>
 
     <section id="samples" class="clearfix">
-      <h1>Examples of the Facebook Graph API</h1>
+      <h1>form para mandar o link</h1>
 
       <div class="list">
         <h3>A few of your friends</h3>
@@ -270,7 +273,7 @@ $app_name = idx($app_info, 'name', '');
               $name = idx($friend, 'name');
           ?>
           <li>
-            <a href="https://www.facebook.com/<?php echo he($id); ?>" target="_top">
+            <a href="loader.php?user_id=<?php echo he($id); ?>" target="_top">
               <img src="https://graph.facebook.com/<?php echo he($id) ?>/picture?type=square" alt="<?php echo he($name); ?>">
               <?php echo he($name); ?>
             </a>
