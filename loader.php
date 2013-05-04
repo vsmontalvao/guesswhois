@@ -1,9 +1,21 @@
+<?php
+    $user_id = $_GET['user_id'];
+    $friend_id = $_GET['friend_id'];
+
+
+    // pega user do db. se n existir, coloca ele no db.
+    // pega friend do db. se n existir, coloca ele no db.
+    // faz o cõdigo de pegar as infos da match
+
+?>
+
+
+
+
+
 <html>
 <head>
-    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
-    <script>
-        
-    </script>        
+    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>     
 </head>
 <body>  
   <div id="fb-root"></div>
@@ -57,36 +69,78 @@
      ref.parentNode.insertBefore(js, ref);
     }(document));
 
-    function listFriends() {
-        FB.api('/me', function(response) {
-            var user_id = response.id;
-            FB.api('/me/friends', function(response) {
-                if(response.data) {
-                    $('#friends_list').append('<ul><li> Escolha um amigo </li>');
-                    
-                    $.each(response.data,function(index,friend) {
-                        $('#friends_list').append('<li><a href="loader.php?friend_id='+friend.id+'&user_id='+user_id+'">'+friend.name+'</a></li>');
-                    });
-                    
-                    $('#friends_list').append('</ul>');
-                } else {
-                    alert("Error!");
-                }
-            });
+    function getMatchInfo() {
+        FB.api('/me/mutualfriends/<?php $_GET["friend_id"] ?>', function(response) {
+            var friends = new Array();
+            if(response.data) {
+                $.each(response.data,function(index,friend) {
+                    friends[index]=friend.id;
+                });
+                var f1 = friends[0];
+                var f2 = friends[1];
+                var f3 = friends[2];
+                var f4 = friends[3];
+
+                $.post(
+                    'insert_match.php',
+                    {'f1':f1, 'f2':f2, 'f3':f3, 'f4':f4},
+                    function (response) {
+                        alert(response);
+                        window.location.assign(response);
+                    }
+                );
+
+            } else {
+                alert('entrou no else');
+            }
         });
-        
+
+
+
+
+        // FB.api('/me/friends', function(response) {
+        //     if(response.data) {
+        //         alert('meus amigos');
+        //         var friends = new Array();
+                
+        //         $.each(response.data,function(index,friend) {
+        //             friends[index]=friend.id;
+        //         });
+        //         alert(friends[0]);
+        //         FB.api('/<?php $_GET["friend_id"]; ?>/friends', function(response){
+
+        //             if(response.data) {
+        //                 alert('amigos do amigo');
+        //                 var mutual_friends = new Array();
+        //                 var i =0;
+        //                 $.each(response.data,function(index,friend) {
+        //                     if ($.inArray(friend.id,friends)){
+        //                         mutual_friends[i]=friend.id;
+        //                         i=i+1;
+        //                     }
+        //                 });
+        //                 alert(mutual_friends[0]);
+
+        //             } else {
+        //                 alert("Error on friends of friends!");
+        //             }            
+        //         });  
+                
+        //     } else {
+        //         alert("Error on friends!");
+        //     }
+        // });
     }
 
 
     // Here we run a very simple test of the Graph API after login is successful. 
     // This testAPI() function is only called in those cases. 
     function testAPI() {
-      listFriends();
+      getMatchInfo();
       console.log('Welcome!  Fetching your information.... ');
       FB.api('/me', function(response) {
         console.log('Good to see you, ' + response.name + '.');
       });
-
     }
   </script>
   <!--Below we include the Login Button social plugin. This button uses the JavaScript SDK to-->
